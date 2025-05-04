@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Nana's Forest Sanctuary</title>
+  <!-- Google Fonts 引入 Comic Neue -->
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-family: 'Comic Neue', cursive;
       background: url('https://i.pinimg.com/736x/56/a8/05/56a80513c07b9c5c32e7bc3f07bb9e85.jpg') no-repeat center center fixed;
       background-size: cover;
       color: #fffbe7;
@@ -15,6 +17,20 @@
       flex-direction: column;
       align-items: center;
       padding: 20px;
+    }
+    h1, h3 {
+      text-align: center;
+      margin-bottom: 10px;
+      text-shadow: 1px 1px 2px #000;
+    }
+    h1 {
+      font-size: 36px;
+      margin-top: 20px;
+    }
+    h3 {
+      font-size: 20px;
+      font-weight: normal;
+      font-style: italic;
     }
     .section {
       background: rgba(0, 0, 0, 0.4);
@@ -59,8 +75,11 @@
   </style>
 </head>
 <body>
+  <h1>Welcome back to our little sanctuary</h1>
+  <h3>Are you feeling like not yourself now?</h3>
+
   <div class="section">
-    <h2>💛What Can I Do Right Now?⭐</h2>
+    <h2>🌷What Can We Do Right Now?🌸</h2>
     <ul>
       <li>Take three slow breaths with me 🌬️</li>
       <li>Drink a sip of water 💧</li>
@@ -101,28 +120,31 @@
   </div>
 
   <script>
-    // Breathing animation with 5s per phase
-    const circle = document.getElementById("breathCircle");
-    const breathText = document.getElementById("breathText");
+   const circle = document.getElementById("breathCircle");
+  const breathText = document.getElementById("breathText");
 
-    const phases = [
-      { text: "Inhale...", scale: 1.2 },
-      { text: "Hold...", scale: 1.2 },
-      { text: "Exhale...", scale: 0.8 },
-    ];
+  function inhale() {
+    breathText.textContent = "Inhale...";
+    circle.style.transition = "transform 5s ease-in-out";
+    circle.style.transform = "scale(1.2)";
+    setTimeout(hold, 5000);
+  }
 
-    let currentPhase = 0;
+  function hold() {
+    breathText.textContent = "Hold...";
+    circle.style.transition = "transform 0s";
+    circle.style.transform = "scale(1.2)";
+    setTimeout(exhale, 5000);
+  }
 
-    function updateBreathingPhase() {
-      const phase = phases[currentPhase];
-      breathText.textContent = phase.text;
-      circle.style.transform = `scale(${phase.scale})`;
+  function exhale() {
+    breathText.textContent = "Exhale...";
+    circle.style.transition = "transform 5s ease-in-out";
+    circle.style.transform = "scale(0.8)";
+    setTimeout(inhale, 5000);
+  }
 
-      currentPhase = (currentPhase + 1) % phases.length;
-    }
-
-    updateBreathingPhase();
-    setInterval(updateBreathingPhase, 5000);
+  inhale(); // Start the cycle
 
     // Note rotator
     const notes = [
@@ -135,7 +157,6 @@
       "I'm proud of you honey, every single day of my life.",
       "Even when your brain’s being a drama queen, I still think you’re the cutest human in existence."
     ];
-
     let noteIndex = 0;
     function nextNote() {
       document.getElementById("note").textContent = notes[noteIndex];
